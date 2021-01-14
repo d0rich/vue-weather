@@ -45,6 +45,7 @@
 
 <script>
 import HelloWorld from './components/HelloWorld';
+import {OwmApi} from "@/classes";
 
 export default {
   name: 'App',
@@ -56,5 +57,12 @@ export default {
   data: () => ({
     //
   }),
+  mounted() {
+    navigator.geolocation.getCurrentPosition(location => {
+      console.log(location)
+      new OwmApi().currentWeatherByCoords(location.coords)
+          .then(note => console.log(note))
+    }, undefined, undefined )
+  }
 };
 </script>
