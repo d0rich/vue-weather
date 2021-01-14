@@ -36,33 +36,49 @@
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
-
     <v-main>
-      <HelloWorld/>
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-import {OwmApi} from "@/classes";
-
+import {Coords, Geocode, GeoHelper, IpApi} from "@/classes";
+import {mapActions} from 'vuex'
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
   },
 
   data: () => ({
     //
   }),
+  methods:{
+    ...mapActions(['setTimeInterval']),
+    async loadStartData(coords){
+      const geohelper = new GeoHelper()
+      const cityName = await new Geocode().getCityByCoords(coords)
+      let city = await geohelper.getCityByName(cityName)
+      let region = await geohelper.getRegionById(city.region.id)
+      city.region = region
+      city.location = coords
+      this.setLocation(new Coords(coords))
+      this.setCity(city)
+      this.setRegion(region)
+      this.city.getCurrentWeather()
+    }
+  },
   mounted() {
-    navigator.geolocation.getCurrentPosition(location => {
+    this.setTimeInterval()
+    navigator.geolocation.getCurrentPosition(async location => {
       console.log(location)
-      new OwmApi().currentWeatherByCoords(location.coords)
-          .then(note => console.log(note))
-    }, undefined, undefined )
+      this.loadStartData(location.coords)
+    }, async () => {
+      let location = await new IpApi().getCoordsByIp()
+      console.log(location)
+      this.loadStartData(location)
+    }, undefined )
   }
 };
 </script>

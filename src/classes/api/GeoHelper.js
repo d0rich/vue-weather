@@ -1,29 +1,78 @@
 import axios from "axios";
+import {City, Region} from "@/classes";
 
 export class GeoHelper{
     apiKey = 'QcCPBQrO82z8m2QIuMfaUMLz7OamwVs8'
 
-    async getRegions(page = 1, limit = 20, orderBy = 'name', dir = 'asc'){
+    async getRegionById(id){
         let req = `http://geohelper.info/api/v1/regions?apiKey=${this.apiKey}`
-        req += '&locale%5Blang%5D=ru'
-        req += '&filter%5BcountryIso%5D=ru'
-        req += `&pagination%5Bpage%5D=${page}`
-        req += `&pagination%5Blimit%5D=${limit}`
-        req += `&order%5Bby%5D=${orderBy}`
-        req += `&order%5Bdir%5D=${dir}`
+        req += '&locale[lang]=ru'
+        req += `&filter[id]=${id}`
         let res = await axios.get(req)
-        return res.data
+        let region = res.data.result[0]
+        return new Region(region.id, region.name)
+    }
+
+    async getRegions(){
+        let req = `http://geohelper.info/api/v1/regions?apiKey=${this.apiKey}`
+        req += '&locale[lang]=ru'
+        req += '&filter[countryIso]=ru'
+        req += `&pagination[page]=1`
+        req += `&pagination[limit]=100`
+        req += `&order[by]=name`
+        req += `&order[dir]=asc`
+        let res = await axios.get(req)
+        let regions = []
+        res.data.result.forEach(region => {
+            regions.push(new Region(region.id, region.name))
+        })
+        return regions
+    }
+
+    async getCityByName(name){
+        let req = `http://geohelper.info/api/v1/cities?apiKey=${this.apiKey}`
+        req += '&locale[lang]=ru'
+        req += `&filter[name]=${name}`
+        req += '&filter[nameStrictLanguage]=ru'
+        req += '&order[by]=population'
+        req += '&order[dir]=desc'
+        let res = await axios.get(req)
+        let city = res.data.result[0]
+        let cityAsClass = new City(city.id, city.name, null, city.postCode)
+        cityAsClass.region = new Region()
+        cityAsClass.region.id = city.regionId
+        return cityAsClass
     }
 
     async getCitiesOfRegion(regionId, page = 1, limit = 20, orderBy = 'name', dir = 'asc'){
         let req = `http://geohelper.info/api/v1/cities?apiKey=${this.apiKey}`
-        req += '&locale%5Blang%5D=ru'
-        req += `&filter%5BregionId%5D=${regionId}`
-        req += `&pagination%5Bpage%5D=${page}`
-        req += `&pagination%5Blimit%5D=${limit}`
-        req += `&order%5Bby%5D=${orderBy}`
-        req += `&order%5Bdir%5D=${dir}`
+        req += '&locale[lang]=ru'
+        req += `&filter[regionId]=${regionId}`
+        req += `&pagination[page]=${page}`
+        req += `&pagination[limit]=${limit}`
+        req += `&order[by]=${orderBy}`
+        req += `&order[dir]=${dir}`
         let res = await axios.get(req)
-        return res.data
+        let cities = []
+        res.data.result.forEach(city => {
+            let newCity = new City(city.id, city.name, null, city.postCode)
+            cities.push(newCity)
+        })
+        return cities
+    }
+
+    async getTopCities(){
+        let req = `http://geohelper.info/api/v1/cities?apiKey=${this.apiKey}`
+        req += '&locale[lang]=ru'
+        req += `&filter[countryIso]=ru`
+        req += `&order[by]=population`
+        req += `&order[dir]=desc`
+        let res = await axios.get(req)
+        let cities = []
+        res.data.result.forEach(city => {
+            let newCity = new City(city.id, city.name, null, city.postCode)
+            cities.push(newCity)
+        })
+        return cities
     }
 }

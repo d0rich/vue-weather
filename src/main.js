@@ -8,6 +8,17 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
+import {mapMutations, mapState} from "vuex"
+
+Vue.mixin({
+  computed:{
+    ...mapState(['location', 'city', 'region', 'regions', 'timeNow'])
+  },
+  methods:{
+    ...mapMutations(['setLocation', 'setCity', 'setRegion'])
+  }
+})
+
 new Vue({
   router,
   store,
