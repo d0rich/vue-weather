@@ -25,6 +25,12 @@ export class OwmApi{
         res.data.daily.forEach(note => {
             notes.push(new DailyWeatherNote(note))
         })
+        let note1 = res.data.daily[0]
+        note1.dt -= 24*60*60
+        notes.unshift(new DailyWeatherNote(note1))
+        note1 = res.data.daily[7]
+        note1.dt += 24*60*60
+        notes.push(new DailyWeatherNote(note1))
         return notes
     }
 

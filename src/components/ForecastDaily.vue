@@ -1,27 +1,31 @@
 <template>
-  <div class="weather-container">
-    <v-card elevation="2"
-            shaped
-            class="ma-3 weather-card"
-            v-for="(note, index) in weekWeather" :key="index" >
-      <v-card-title class="card-title">{{note.dayName}}</v-card-title>
-      <v-card-subtitle class="card-title">{{note.date.toLocaleDateString()}}</v-card-subtitle>
-      <v-card-text class="temp-section">
-        <v-img :src="note.cloudIcon">
-          <div class="temp-section-div">
-            <div class="mb-5 temp-value">
-              <h1>{{note.temp}}&deg;</h1>
-              <img v-if="note.tempIcon" :src="note.tempIcon" alt="temp">
+  <div class="main-container">
+    <h1>Прогноз на ближайшие дни:</h1>
+    <div class="weather-container">
+      <v-card elevation="2"
+              shaped
+              class="ma-3 weather-card"
+              v-for="(note, index) in weekWeather" :key="index" >
+        <v-card-title class="card-title">{{note.dayName}}</v-card-title>
+        <v-card-subtitle class="card-title">{{note.date.toLocaleDateString()}}</v-card-subtitle>
+        <v-card-text class="temp-section">
+          <v-img :src="note.cloudIcon">
+            <div class="temp-section-div">
+              <div class="mb-5 temp-value">
+                <h1>{{note.temp}}&deg;</h1>
+                <img v-if="note.tempIcon" :src="note.tempIcon" alt="temp">
+              </div>
+              <div class="feels-like">
+                <div>Ощущается как: {{note.feelsLike}}&deg;</div>
+                <div><v-icon>mdi-weather-cloudy</v-icon>{{note.cloudiness}}%</div>
+              </div>
             </div>
-            <div class="feels-like">
-              <div>Ощущается как: {{note.feelsLike}}&deg;</div>
-              <div><v-icon>mdi-weather-cloudy</v-icon>{{note.cloudiness}}%</div>
-            </div>
-          </div>
-        </v-img>
-      </v-card-text>
-    </v-card>
+          </v-img>
+        </v-card-text>
+      </v-card>
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -35,6 +39,14 @@ name: "ForecastDaily",
 </script>
 
 <style scoped lang="scss">
+.main-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1{
+    margin: 0 0.5rem;
+  }
+}
 .card-title{
   background-color: white;
 }
@@ -42,6 +54,7 @@ name: "ForecastDaily",
   overflow-x: auto;
   display: flex;
   width: 80vw;
+  min-width: 320px;
 }
 .weather-card{
   max-width: 200px;
@@ -53,6 +66,7 @@ name: "ForecastDaily",
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 0.5rem;
 
   .temp-value{
     display: flex;
