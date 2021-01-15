@@ -6,6 +6,7 @@ export class City{
 
     onCurrentWeatherLoad = true
     onSunDayLoad = true
+    onWeekWeatherLoad = true
 
     weatherApi = new OwmApi()
     constructor(id = 0,name = '', location, postalCode) {
@@ -28,24 +29,51 @@ export class City{
     }
 
     async getCurrentWeather(){
-        this.onCurrentWeatherLoad = true
-        if (this.postalCode) {
-            this.currentWeather = await this.weatherApi.currentWeatherByZip(this.postalCode)
+        if (this.location || this.postalCode){
+            this.onCurrentWeatherLoad = true
+            if (this.postalCode) {
+                this.currentWeather = await this.weatherApi.currentWeatherByZip(this.postalCode)
+            }
+            else {
+                this.currentWeather = await this.weatherApi.currentWeatherByCoords(this.location)
+            }
+            this.onCurrentWeatherLoad = false
         }
         else {
-            this.currentWeather = await this.weatherApi.currentWeatherByCoords(this.location)
+            if (this.postalCode) await this.getLocationByPostalCode()
+            else await this.getLocationByName()
+            await this.getCurrentWeather()
         }
-        this.onCurrentWeatherLoad = false
     }
 
     async getSunDay(){
-        this.onSunDayLoad = true
-        if (this.postalCode) {
-            this.sunDay = await this.weatherApi.sunDayByZip(this.postalCode)
+        if (this.location || this.postalCode){
+            this.onSunDayLoad = true
+            if (this.postalCode) {
+                this.sunDay = await this.weatherApi.sunDayByZip(this.postalCode)
+            }
+            else {
+                this.sunDay = await this.weatherApi.sunDayByCoords(this.location)
+            }
+            this.onSunDayLoad = false
         }
         else {
-            this.sunDay = await this.weatherApi.sunDayByCoords(this.location)
+            if (this.postalCode) await this.getLocationByPostalCode()
+            else await this.getLocationByName()
+            await this.getSunDay()
         }
-        this.onSunDayLoad = false
+    }
+
+    async getWeekWeather(){
+        if (this.location){
+            this.onWeekWeatherLoad = true
+            this.weekWeather = await this.weatherApi.weekWeatherByCoords(this.location)
+            this.onWeekWeatherLoad = false
+        }
+        else {
+            if (this.postalCode) await this.getLocationByPostalCode()
+            else await this.getLocationByName()
+            await this.getWeekWeather()
+        }
     }
 }

@@ -15,18 +15,25 @@
     >
       <SunDay :sunday="city.sunDay" />
     </v-skeleton-loader>
-
+    <v-skeleton-loader
+        type="card"
+        :loading="!city || city.onWeekWeatherLoad"
+        width="200"
+    >
+      <ForecastDaily :week-weather="city.weekWeather" />
+    </v-skeleton-loader>
   </div>
 </template>
 
 <script>
 import WeatherNow from "@/components/WeatherNow";
 import SunDay from "@/components/SunDay";
+import ForecastDaily from "@/components/ForecastDaily";
 
 export default {
   name: 'Home',
   components: {
-    WeatherNow, SunDay
+    WeatherNow, SunDay, ForecastDaily
   }
 }
 </script>

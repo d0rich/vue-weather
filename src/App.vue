@@ -68,6 +68,7 @@ export default {
       this.setRegion(region)
       this.city.getCurrentWeather()
       this.city.getSunDay()
+      this.city.getWeekWeather()
     }
   },
   mounted() {

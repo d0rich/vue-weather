@@ -1,5 +1,6 @@
 export * from './City'
 export * from './WeatherNote'
+export * from './DailyWeatherNote'
 export * from './Coords'
 export * from './Region'
 export * from './SunDay'
