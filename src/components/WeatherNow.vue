@@ -5,6 +5,7 @@
       class="ma-3"
   >
     <v-card-title class="card-title">Погода в городе {{cityName}} сейчас</v-card-title>
+    <v-card-subtitle class="card-title">{{timeNow.toLocaleString('ru-RU')}}</v-card-subtitle>
     <v-card-text class="temp-section">
       <v-img :src="weather.cloudIcon">
         <div class="temp-section-div">
@@ -19,24 +20,32 @@
     </v-card-text>
     <v-card-text>
       <v-simple-table>
-        <template v-slot:default>
           <thead>
           <tr>
-            <th class="text-center">Влажность</th>
             <th class="text-center">Облачность</th>
-            <th class="text-center">Давление</th>
+            <th class="text-center">Ветер</th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td class="text-center">
-              {{weather.humidity}}%
-            </td>
             <td class="text-center">{{weather.cloudiness}}%</td>
-            <td class="text-center">{{weather.pressure}} мм. рт. ст.</td>
+            <td class="text-center">{{weather.windSpeed}} м/с, {{weather.windDir}}</td>
           </tr>
           </tbody>
-        </template>
+      </v-simple-table>
+      <v-simple-table>
+        <thead>
+        <tr>
+          <th class="text-center">Влажность</th>
+          <th class="text-center">Давление</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="text-center">{{weather.humidity}}%</td>
+          <td class="text-center">{{weather.pressure}} мм. рт. ст.</td>
+        </tr>
+        </tbody>
       </v-simple-table>
     </v-card-text>
 

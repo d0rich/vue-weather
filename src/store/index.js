@@ -10,7 +10,7 @@ export default new Vuex.Store({
     region: new Region(),
     city: new City(),
     regions: [new Region()],
-    timeNow: new Date()
+    timeNow: new Date(),
   },
   getters: {
 

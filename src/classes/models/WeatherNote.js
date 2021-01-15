@@ -30,6 +30,24 @@ export class WeatherNote{
         this.date = new Date(OwmNote.dt * 1000)
     }
 
+    get windDir(){
+        if (this.windDeg < 22.5 || this.windDeg > 337.5)
+            return 'С'
+        else if (this.windDeg < 67.5)
+            return 'СВ'
+        else if (this.windDeg < 112.5)
+            return 'В'
+        else if (this.windDeg < 157.5)
+            return 'ЮВ'
+        else if (this.windDeg < 202.5)
+            return 'Ю'
+        else if (this.windDeg < 247.5)
+            return 'ЮЗ'
+        else if (this.windDeg < 292.5)
+            return 'З'
+        else return 'СЗ'
+    }
+
     get cloudIcon(){
         if (this.date.getHours() > 20 || this.date.getHours() < 10){
             if (this.cloudiness < 25) return Moon

@@ -4,6 +4,9 @@ export class City{
     region = new Region()
     geocode = new Geocode()
 
+    onCurrentWeatherLoad = true
+    onSunDayLoad = true
+
     weatherApi = new OwmApi()
     constructor(id = 0,name = '', location, postalCode) {
         this.id = id
@@ -25,14 +28,24 @@ export class City{
     }
 
     async getCurrentWeather(){
-        //console.log(this)
+        this.onCurrentWeatherLoad = true
         if (this.postalCode) {
             this.currentWeather = await this.weatherApi.currentWeatherByZip(this.postalCode)
-            //console.log('Есть почтовый индекс', this.currentWeather)
         }
         else {
             this.currentWeather = await this.weatherApi.currentWeatherByCoords(this.location)
-            //console.log('Нет почтового индекса', this.currentWeather)
         }
+        this.onCurrentWeatherLoad = false
+    }
+
+    async getSunDay(){
+        this.onSunDayLoad = true
+        if (this.postalCode) {
+            this.sunDay = await this.weatherApi.sunDayByZip(this.postalCode)
+        }
+        else {
+            this.sunDay = await this.weatherApi.sunDayByCoords(this.location)
+        }
+        this.onSunDayLoad = false
     }
 }
