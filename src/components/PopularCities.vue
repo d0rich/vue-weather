@@ -9,10 +9,10 @@
             class="ma-3 card-container">
       <v-card-title class="card-title"><v-icon color="red">mdi-fire</v-icon>Популярные города:</v-card-title>
       <v-list class=" top-list" >
-        <v-list-item v-for="(city, index) in cities" :key="index" link>
+        <v-list-item v-for="(city, index) in cities" :key="index" link :to="{name: 'City', params: {id: city.id}}">
           <v-list-item-content>
             <v-list-item-title>
-              {{index + 1}} {{city.name}}
+              {{index + 1}}) {{city.name}}
             </v-list-item-title>
             <v-list-item-subtitle>
               Население: {{city.populationString}}

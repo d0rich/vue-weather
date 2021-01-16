@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import {Coords, Geocode, GeoHelper, IpApi} from "@/classes";
+import {IpApi} from "@/classes";
 import {mapActions} from 'vuex'
 export default {
   name: 'App',
@@ -55,30 +55,14 @@ export default {
     //
   }),
   methods:{
-    ...mapActions(['setTimeInterval']),
-    async loadStartData(coords){
-      const geohelper = new GeoHelper()
-      const cityName = await new Geocode().getCityByCoords(coords)
-      let city = await geohelper.getCityByName(cityName)
-      let region = await geohelper.getRegionById(city.region.id)
-      city.region = region
-      city.location = coords
-      this.setLocation(new Coords(coords))
-      this.setCity(city)
-      this.setRegion(region)
-      this.city.getCurrentWeather()
-      this.city.getSunDay()
-      this.city.getWeekWeather()
-    }
+    ...mapActions(['setTimeInterval', 'loadStartData'])
   },
   mounted() {
     this.setTimeInterval()
     navigator.geolocation.getCurrentPosition(async location => {
-      console.log(location)
       this.loadStartData(location.coords)
     }, async () => {
       let location = await new IpApi().getCoordsByIp()
-      console.log(location)
       this.loadStartData(location)
     }, undefined )
   }

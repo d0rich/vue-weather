@@ -20,7 +20,8 @@ export class OwmApi{
     }
 
     async weekWeatherByCoords(coords = new Coords()){
-        let res = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${coords.latitude}&lon=${coords.longitude}&exclude=minutely,current,hourly,alerts&appid=${this.appid}&units=metric`)
+        let req = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.latitude}&lon=${coords.longitude}&exclude=minutely,current,hourly,alerts&appid=${this.appid}&units=metric`
+        let res = await axios.get(req)
         let notes = []
         res.data.daily.forEach(note => {
             notes.push(new DailyWeatherNote(note))

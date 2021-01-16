@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-
+import City from "@/views/City";
 Vue.use(VueRouter)
 
 const routes = [
@@ -9,6 +9,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/city/:id',
+    name: 'City',
+    component: City
   },
   {
     path: '/about',
@@ -20,7 +25,7 @@ const routes = [
   },
   {
     path: '/*',
-    redirect: {name: Home}
+    redirect: {name: 'City', params: { id: 0 }}
   }
 ]
 

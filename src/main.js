@@ -15,7 +15,10 @@ Vue.mixin({
     ...mapState(['location', 'city', 'region', 'regions', 'timeNow'])
   },
   methods:{
-    ...mapMutations(['setLocation', 'setCity', 'setRegion'])
+    ...mapMutations(['setLocation', 'setCity', 'setRegion']),
+    timeout(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
   }
 })
 
