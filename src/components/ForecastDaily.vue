@@ -7,7 +7,7 @@
               class="ma-3 weather-card"
               v-for="(note, index) in weekWeather" :key="index" >
         <v-card-title class="card-title">{{note.dayName}}</v-card-title>
-        <v-card-subtitle class="card-title">{{note.date.toLocaleDateString()}}</v-card-subtitle>
+        <v-card-subtitle class="card-title" style="color: white">{{note.date.toLocaleDateString()}}</v-card-subtitle>
         <v-card-text class="temp-section">
           <v-img :src="note.cloudIcon">
             <div class="temp-section-div">
@@ -48,7 +48,8 @@ name: "ForecastDaily",
   }
 }
 .card-title{
-  background-color: white;
+  background-color: var(--v-primary-base);
+  color: white;
 }
 .weather-container{
   overflow-x: auto;

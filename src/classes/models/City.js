@@ -9,9 +9,19 @@ export class City{
     onWeekWeatherLoad = true
 
     weatherApi = new OwmApi()
-    constructor(id = 0,name = '', location, postalCode) {
+
+    get populationString(){
+        if (this.population > 1000000) return `${Math.round(this.population / 100000) / 10} млн.`
+        else if (this.population > 1000) return `${Math.round(this.population / 100) / 10} тыс.`
+        else return this.population
+    }
+
+    constructor(id = 0,name = '', location, postalCode, population ) {
         this.id = id
         this.name = name
+
+        this.population = population ? population : Math.round(Math.random() * 100)
+
         this.postalCode = postalCode
         if (location) this.location = location
         else if (this.postalCode) this.getLocationByPostalCode()

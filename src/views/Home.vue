@@ -15,6 +15,7 @@
     >
       <SunDay :sunday="city.sunDay" />
     </v-skeleton-loader>
+    <PopularCities class="pop-cities"/>
     <v-skeleton-loader
         type="card"
         :loading="!city || city.onWeekWeatherLoad"
@@ -29,11 +30,15 @@
 import WeatherNow from "@/components/WeatherNow";
 import SunDay from "@/components/SunDay";
 import ForecastDaily from "@/components/ForecastDaily";
+import PopularCities from "@/components/PopularCities";
 
 export default {
   name: 'Home',
   components: {
-    WeatherNow, SunDay, ForecastDaily
+    WeatherNow,
+    SunDay,
+    ForecastDaily,
+    PopularCities
   }
 }
 </script>
@@ -43,5 +48,12 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+}
+@media screen and (max-width: 1000px) {
+  .pop-cities{
+    order: 1;
+    width: 80vw;
+    min-width: 310px;
+  }
 }
 </style>

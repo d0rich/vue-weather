@@ -29,6 +29,18 @@ export class GeoHelper{
         return regions
     }
 
+    async getCityById(id){
+        let req = `http://geohelper.info/api/v1/cities?apiKey=${this.apiKey}`
+        req += '&locale[lang]=ru'
+        req += `&filter[id]=${id}`
+        let res = await axios.get(req)
+        let city = res.data.result[0]
+        let cityAsClass = new City(city.id, city.name, null, city?.postCode, city?.population)
+        cityAsClass.region = new Region()
+        cityAsClass.region.id = city.regionId
+        return cityAsClass
+    }
+
     async getCityByName(name){
         let req = `http://geohelper.info/api/v1/cities?apiKey=${this.apiKey}`
         req += '&locale[lang]=ru'
@@ -38,7 +50,7 @@ export class GeoHelper{
         req += '&order[dir]=desc'
         let res = await axios.get(req)
         let city = res.data.result[0]
-        let cityAsClass = new City(city.id, city.name, null, city.postCode)
+        let cityAsClass = new City(city.id, city.name, null, city?.postCode, city?.population)
         cityAsClass.region = new Region()
         cityAsClass.region.id = city.regionId
         return cityAsClass
@@ -55,22 +67,22 @@ export class GeoHelper{
         let res = await axios.get(req)
         let cities = []
         res.data.result.forEach(city => {
-            let newCity = new City(city.id, city.name, null, city.postCode)
+            let newCity = new City(city.id, city.name, null, city?.postCode, city?.population)
             cities.push(newCity)
         })
         return cities
     }
 
-    async getTopCities(){
+    async getTopCities(country_code){
         let req = `http://geohelper.info/api/v1/cities?apiKey=${this.apiKey}`
         req += '&locale[lang]=ru'
-        req += `&filter[countryIso]=ru`
+        req += `&filter[countryIso]=${country_code}`
         req += `&order[by]=population`
         req += `&order[dir]=desc`
         let res = await axios.get(req)
         let cities = []
         res.data.result.forEach(city => {
-            let newCity = new City(city.id, city.name, null, city.postCode)
+            let newCity = new City(city.id, city.name, null, city?.postCode, city?.population)
             cities.push(newCity)
         })
         return cities

@@ -4,8 +4,8 @@
       shaped
       class="ma-3"
   >
-    <v-card-title>Погода в городе {{cityName}} сейчас</v-card-title>
-    <v-card-subtitle>{{timeNow.toLocaleString('ru-RU')}}</v-card-subtitle>
+    <v-card-title class="card-title">Погода в г. {{cityName}} сейчас</v-card-title>
+    <v-card-subtitle class="card-title" style="color: white">{{timeNow.toLocaleString('ru-RU')}}</v-card-subtitle>
     <v-card-text class="temp-section">
       <v-img :src="weather.cloudIcon">
         <div class="temp-section-div">
@@ -39,6 +39,10 @@ name: "WeatherNow",
 </script>
 
 <style scoped lang="scss">
+.card-title{
+  background-color: var(--v-primary-base);
+  color: white;
+}
 .temp-section{
   background-color: var(--v-accent-base);
 }

@@ -4,7 +4,7 @@
       shaped
       class="ma-3"
   >
-    <v-card-title>Солнечный день</v-card-title>
+    <v-card-title class="card-title">Солнечный день</v-card-title>
     <v-img :src="sunday.picture" max-width="300" />
     <v-card-text class="time-block">
       <div class="time">
@@ -67,6 +67,10 @@ name: "SunDay",
 </script>
 
 <style scoped lang="scss">
+.card-title{
+  background-color: var(--v-primary-base);
+  color: white;
+}
 .card-body{
   display: flex;
   align-items: center;
