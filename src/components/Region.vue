@@ -14,7 +14,7 @@
             <v-select class="mx-4" label="Записи на странице" v-model="itemsOnPage" :items="itemsOnPageItems" />
             <v-select class="mx-4" label="Сортировать по" v-model="orderBy" :items="orderByItems" item-text="text" item-value="value" />
             <v-select class="mx-4" label="Порядок" v-model="orderDir" :items="orderDirItems" item-text="text" item-value="value" />
-            <v-btn class="mx-4" color="primary" @click="region.getCities(1, itemsOnPage, orderBy, orderDir)" >Поиск</v-btn>
+            <v-btn class="mx-4" color="primary" @click="region.getCities(page=1, itemsOnPage, orderBy, orderDir)" >Поиск</v-btn>
           </v-row>
         </v-card-text>
 

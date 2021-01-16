@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <div style="width: 100%; text-align: center; margin: 20px">Твои координаты: {{this.location}}</div>
     <v-skeleton-loader
         type="card"
         :loading="!cityNow || cityNow.onCurrentWeatherLoad"
