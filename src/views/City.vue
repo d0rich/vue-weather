@@ -56,7 +56,6 @@ name: "City",
       }
     },
     async fetchCity(){
-      console.log(this.$route.params)
       if (!this.$route.params.id || this.$route.params.id === '0'){
         if (this.city && this.city.id !== 0) {
           this.cityNow = this.city

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import City from "@/views/City";
+import Region from "@/components/Region";
 Vue.use(VueRouter)
 
 const routes = [
@@ -14,6 +15,11 @@ const routes = [
     path: '/city/:id',
     name: 'City',
     component: City
+  },
+  {
+    path: '/region',
+    name: 'Region',
+    component: Region
   },
   {
     path: '/about',

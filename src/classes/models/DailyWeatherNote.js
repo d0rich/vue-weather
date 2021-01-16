@@ -13,8 +13,8 @@ export class DailyWeatherNote {
     cloudiness = 0
 
     constructor(OwmNote) {
-        this.temp = OwmNote.temp.day
-        this.feelsLike = OwmNote.feels_like.day
+        this.temp = Math.round(OwmNote.temp.day)
+        this.feelsLike = Math.round(OwmNote.feels_like.day)
         this.cloudiness = OwmNote.clouds
 
         this.date = new Date(OwmNote.dt * 1000)

@@ -70,7 +70,7 @@ export class GeoHelper{
             let newCity = new City(city.id, city.name, null, city?.postCode, city?.population)
             cities.push(newCity)
         })
-        return cities
+        return [cities, res.data.pagination.totalPageCount]
     }
 
     async getTopCities(country_code){

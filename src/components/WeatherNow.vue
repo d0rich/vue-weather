@@ -3,6 +3,7 @@
       elevation="2"
       shaped
       class="ma-3"
+      max-width="280"
   >
     <v-card-title class="card-title">Погода в г. {{cityName}} сейчас</v-card-title>
     <v-card-subtitle class="card-title" style="color: white">{{timeNow.toLocaleString('ru-RU')}}</v-card-subtitle>

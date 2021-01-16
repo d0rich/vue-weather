@@ -19,8 +19,8 @@ export class WeatherNote{
     humidity = 0
 
     constructor(OwmNote) {
-        this.temp = OwmNote.main.temp
-        this.feelsLike = OwmNote.main.feels_like
+        this.temp = Math.round(OwmNote.main.temp)
+        this.feelsLike = Math.round(OwmNote.main.feels_like)
         this.windSpeed = OwmNote.wind.speed
         this.windDeg = OwmNote.wind.deg
         this.cloudiness = OwmNote.clouds.all
