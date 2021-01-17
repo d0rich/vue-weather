@@ -11,6 +11,7 @@ export default new Vuex.Store({
     city: new City(),
     regions: [new Region()],
     timeNow: new Date(),
+    favorites: []
   },
   getters: {
 
@@ -30,6 +31,29 @@ export default new Vuex.Store({
     },
     setTime(state){
       state.timeNow = new Date()
+    },
+    getFavorites(state){
+      const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
+      const geohelper = new GeoHelper()
+      state.favorites = []
+      favoritesIds.forEach(id => {
+        geohelper.getCityById(id)
+            .then(city => {
+              state.favorites.push(city)
+            })
+      })
+    },
+    addFavorite(state, newCity){
+      state.favorites.push(newCity)
+      const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
+      favoritesIds.push(newCity.id)
+      localStorage.setItem('favorites', JSON.stringify(favoritesIds))
+    },
+    removeFavorite(state, cityToDelete){
+      state.favorites.splice(state.favorites.findIndex(city => city.id === cityToDelete.id), 1)
+      const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
+      favoritesIds.splice(favoritesIds.findIndex(id => id === cityToDelete.id), 1)
+      localStorage.setItem('favorites', JSON.stringify(favoritesIds))
     }
   },
   actions: {
@@ -37,6 +61,9 @@ export default new Vuex.Store({
       setInterval(() => {
         commit('setTime')
       }, 1000)
+    },
+    checkFavorite(state, city){
+      return state.favorites.includes(f => f.id === city.id)
     },
     async getRegions({commit}){
       commit('setRegions', await new GeoHelper().getRegions())
