@@ -22,7 +22,7 @@ export default {
     //
   }),
   methods:{
-    ...mapActions(['setTimeInterval', 'loadStartData'])
+    ...mapActions(['setTimeInterval', 'loadStartData', 'getRegions'])
   },
   mounted() {
     this.setTimeInterval()
@@ -32,6 +32,7 @@ export default {
       let location = await new IpApi().getCoordsByIp()
       this.loadStartData(location)
     }, undefined )
+    this.getRegions()
   }
 };
 </script>

@@ -38,6 +38,9 @@ export default new Vuex.Store({
         commit('setTime')
       }, 1000)
     },
+    async getRegions({commit}){
+      commit('setRegions', await new GeoHelper().getRegions())
+    },
     async loadStartData({state, commit}, coords){
       const geohelper = new GeoHelper()
       const cityName = await new Geocode().getCityByCoords(coords)
