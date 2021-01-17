@@ -37,6 +37,13 @@ name: "PopularCities",
       this.topCitiesOnLoad = false
     }
   },
+  watch:{
+    favorites(){
+      this.cities.forEach(city => {
+        city.checkFavorite()
+      })
+    }
+  },
   async mounted() {
     if (!this.location || (this.location.longitude === 0 && this.location.latitude === 0))
       navigator.geolocation.getCurrentPosition(async location => {

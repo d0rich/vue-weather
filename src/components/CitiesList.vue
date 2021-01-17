@@ -4,6 +4,7 @@
       <v-list-item-content>
         <v-list-item-title>
           <span v-if="positions">{{index + 1}})</span> {{city.name}}
+          <v-icon v-if="city.favorite" color="orange">mdi-star</v-icon>
         </v-list-item-title>
         <v-list-item-subtitle>
           Население: {{city.populationString}}

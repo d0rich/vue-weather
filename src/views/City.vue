@@ -6,7 +6,7 @@
         :loading="!cityNow || cityNow.onCurrentWeatherLoad"
         width="300"
     >
-      <WeatherNow :city-name="cityNow.name" :weather="cityNow.currentWeather" />
+      <WeatherNow :city-now="cityNow" :weather="cityNow.currentWeather" />
     </v-skeleton-loader>
 
     <v-skeleton-loader

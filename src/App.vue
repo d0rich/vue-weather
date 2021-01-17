@@ -32,6 +32,7 @@ export default {
       let location = await new IpApi().getCoordsByIp()
       this.loadStartData(location)
     }, undefined )
+    this.getFavorites()
     this.getRegions()
   }
 };

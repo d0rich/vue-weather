@@ -7,7 +7,11 @@
   >
     <v-card-title class="card-title">
       <v-col class="pa-0">
-        <div>{{cityName}}</div>
+        <div>
+          {{cityNow.name}}
+          <v-btn v-if="cityNow.favorite" color="orange" icon @click="removeFavorite(cityNow)"><v-icon>mdi-star</v-icon></v-btn>
+          <v-btn v-else color="orange" icon @click="addFavorite(cityNow)"><v-icon>mdi-star-outline</v-icon></v-btn>
+        </div>
         <div>Погода сейчас</div>
       </v-col>
 
@@ -76,12 +80,12 @@
 </template>
 
 <script>
-import {WeatherNote} from "@/classes";
+import {WeatherNote, City} from "@/classes";
 
 export default {
 name: "WeatherNow",
   props:{
-    cityName: String,
+    cityNow: City,
     weather: WeatherNote
   }
 }
