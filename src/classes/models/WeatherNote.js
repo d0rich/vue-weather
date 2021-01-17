@@ -24,7 +24,7 @@ export class WeatherNote{
         this.windSpeed = OwmNote.wind.speed
         this.windDeg = OwmNote.wind.deg
         this.cloudiness = OwmNote.clouds.all
-        this.pressure = Math.round(OwmNote.main.pressure * 0.750063755419211 *100) /100
+        this.pressure = Math.round(OwmNote.main.pressure * 0.750063755419211)
         this.humidity = OwmNote.main.humidity
 
         this.date = new Date(OwmNote.dt * 1000)

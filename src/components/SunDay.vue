@@ -9,7 +9,7 @@
     <v-card-text class="time-block">
       <div class="time">
         <div>Восход</div>
-        <div>{{sunday.sunrise.getHours()}} : {{sunday.sunrise.getMinutes()}}</div>
+        <div>{{sunday.sunriseTime}}</div>
       </div>
       <div class="time">
         <div>Длительность</div>
@@ -17,7 +17,7 @@
       </div>
       <div class="time">
         <div>Закат</div>
-        <div>{{sunday.sunset.getHours()}} : {{sunday.sunset.getMinutes()}}</div>
+        <div>{{sunday.sunsetTime}}</div>
       </div>
     </v-card-text>
     <v-card-text class="card-body">
