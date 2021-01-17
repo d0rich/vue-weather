@@ -23,8 +23,50 @@
           </div>
           <div class="feels-like">
             <div>Ощущается как: {{weather.feelsLike}}&deg;</div>
-            <div><v-icon>mdi-weather-cloudy</v-icon>{{weather.cloudiness}}%   <v-icon>mdi-weather-windy</v-icon>{{weather.windSpeed}} м/с, {{weather.windDir}}</div>
-            <div><v-icon>mdi-water-percent</v-icon>{{weather.humidity}}%   <v-icon>mdi-speedometer</v-icon>{{weather.pressure}} мм. рт. ст.</div>
+            <div>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs"
+                        v-on="on">
+                    <v-icon>mdi-weather-cloudy</v-icon>{{weather.cloudiness}}%
+                  </span>
+                </template>
+                <span>Облачность</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs"
+                        v-on="on">
+                    <v-icon>mdi-weather-windy</v-icon>{{weather.windSpeed}} м/с, {{weather.windDir}}
+                  </span>
+                </template>
+                <span>Ветер</span>
+              </v-tooltip>
+
+              </div>
+            <div>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs"
+                        v-on="on">
+                    <v-icon>mdi-water-percent</v-icon>{{weather.humidity}}%
+                  </span>
+                </template>
+                <span>Влажность</span>
+              </v-tooltip>
+
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs"
+                        v-on="on">
+                    <v-icon>mdi-speedometer</v-icon>{{weather.pressure}} мм. рт. ст.
+                  </span>
+                </template>
+                <span>Давление</span>
+              </v-tooltip>
+
+
+            </div>
           </div>
         </div>
       </v-img>

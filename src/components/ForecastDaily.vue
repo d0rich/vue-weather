@@ -17,7 +17,15 @@
               </div>
               <div class="feels-like">
                 <div>Ощущается как: {{note.feelsLike}}&deg;</div>
-                <div><v-icon>mdi-weather-cloudy</v-icon>{{note.cloudiness}}%</div>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                  <div v-bind="attrs"
+                        v-on="on">
+                    <v-icon>mdi-weather-cloudy</v-icon>{{note.cloudiness}}%
+                  </div>
+                  </template>
+                  <span>Облачность</span>
+                </v-tooltip>
               </div>
             </div>
           </v-img>
