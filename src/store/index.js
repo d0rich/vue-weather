@@ -63,15 +63,16 @@ export default new Vuex.Store({
     // name - по названию
     // date - по дате добавления в избранное
     // pos - по удалению от пользователя
-    sortFavorites(state, type = 'name'){
-      switch (type){
+    sortFavorites(state, options = {type: 'name', dir: 'asc'}){
+      const dir = 1 - 2 * (options.dir === 'desc')
+      switch (options.type){
         case "name":
           state.favorites.sort((a, b) => {
             if (a.name < b.name) {
-              return -1;
+              return -dir;
             }
             if (a.name > b.name) {
-              return 1;
+              return dir;
             }
             return 0;
           })
@@ -79,10 +80,10 @@ export default new Vuex.Store({
         case 'date':
           state.favorites.sort((a, b) => {
             if (a.favoriteDate > b.favoriteDate) {
-              return -1;
+              return -dir;
             }
             if (a.favoriteDate < b.favoriteDate) {
-              return 1;
+              return dir;
             }
             return 0;
           })
@@ -92,10 +93,10 @@ export default new Vuex.Store({
             const aDistance = a.location.getDistance(state.location)
             const bDistance = b.location.getDistance(state.location)
             if (aDistance < bDistance) {
-              return -1;
+              return -dir;
             }
             if (aDistance > bDistance) {
-              return 1;
+              return dir;
             }
             return 0;
           })

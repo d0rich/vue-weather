@@ -24,7 +24,7 @@
           </v-row>
         </v-card-text>
 
-        <CitiesList :cities="region.cities" max-height="65vh"/>
+        <CitiesList :cities="region.cities" population max-height="65vh"/>
         <v-pagination
             v-model="page"
             :length="region.citiesPages"

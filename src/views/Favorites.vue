@@ -1,31 +1,39 @@
 <template>
-  <div>
-    <v-select class="mx-4" label="Сортировать по" v-model="sortBy" @change="onChange" :items="sortItems" item-text="text" item-value="value" />
-    <div class="favorites-container">
-      <v-skeleton-loader
-          v-for="(city, index) in favorites" :key="index"
-          type="card"
-          :loading="!city || city.onCurrentWeatherLoad"
-          width="300"
-      >
-        <WeatherNow :city-now="city" :weather="city.currentWeather" />
-      </v-skeleton-loader>
+  <div style="max-width: 700px; margin: auto">
+    <h2 class="my-4 mx-3">Любимые населённые пункты</h2>
+    <v-row class="mt-3 mx-3">
+      <v-select class="mx-4" label="Сортировать по"
+                v-model="sortBy" @change="onChange"
+                :items="sortItems" item-text="text" item-value="value" />
+      <v-select class="mx-4" label="Порядок"
+                v-model="sortDir" @change="onChange"
+                :items="dirItems" item-text="text" item-value="value" />
+    </v-row>
+    <cities-list :cities="itemsOnPage" weather del-btn />
+    <div class="text-center mx-3">
+      <v-pagination
+          v-model="page"
+          :length="length"
+      ></v-pagination>
     </div>
   </div>
 
 </template>
 
 <script>
-import WeatherNow from "@/components/WeatherNow";
+import CitiesList from "@/components/CitiesList";
 import {mapMutations} from 'vuex'
 export default {
 name: "Favorites",
   components:{
-    WeatherNow
+    CitiesList
   },
   data(){
     return {
+      itemsCount: 5,
+      page: 1,
       sortBy: 'name',
+      sortDir: 'asc',
       sortItems:[
         {text: 'По названию', value: 'name'},
         {text: 'По дате добавления', value: 'date'},
@@ -33,23 +41,49 @@ name: "Favorites",
       ]
     }
   },
+  computed:{
+    dirItems(){
+      if (this.sortBy === 'name')
+        return [
+          {text: 'А-Я', value: 'asc'},
+          {text: 'Я-А', value: 'desc'}
+        ]
+      else if (this.sortBy === 'date')
+        return [
+          {text: 'По возрастанию', value: 'asc'},
+          {text: 'По убыванию', value: 'desc'}
+        ]
+      else
+        return [
+          {text: 'Ближе ко мне', value: 'asc'},
+          {text: 'Дальше от меня', value: 'desc'}
+        ]
+    },
+    itemsOnPage(){
+      let result = []
+      this.favorites.forEach((city, index) => {
+        if (index < this.page * this.itemsCount && index >= (this.page - 1) * this.itemsCount)
+          result.push(city)
+      })
+      return result
+    },
+    length(){
+      return Math.ceil(this.favorites.length / this.itemsCount)
+    }
+  },
   methods:{
     ...mapMutations(["sortFavorites"]),
     onChange(){
-      this.sortFavorites(this.sortBy)
+      this.sortFavorites({type: this.sortBy, dir: this.sortDir})
+      this.page = 1
     }
   },
   mounted() {
-    this.sortFavorites(this.sortBy)
+    this.sortFavorites({type: this.sortBy, dir: this.sortDir})
   }
 }
 </script>
 
 <style scoped>
-.favorites-container{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-}
+
 </style>

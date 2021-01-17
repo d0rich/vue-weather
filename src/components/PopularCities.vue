@@ -8,7 +8,7 @@
             shaped
             class="ma-3 card-container">
       <v-card-title class="card-title"><v-icon color="red">mdi-fire</v-icon>Популярные города:</v-card-title>
-      <CitiesList :cities="cities" max-height="300px" positions />
+      <CitiesList :cities="cities" max-height="300px" positions population />
       <v-card-text class="card-title" />
     </v-card>
   </v-skeleton-loader>

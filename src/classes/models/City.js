@@ -36,7 +36,7 @@ export class City{
         let favoriteNote = favoritesIds.find(f => f.id === this.id)
         if (favoriteNote) {
             this.favorite = true
-            this.favoriteDate = new Date(favoriteNote)
+            this.favoriteDate = new Date(favoriteNote.date)
         }
         else{
             this.favorite = false
