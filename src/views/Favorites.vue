@@ -9,9 +9,11 @@
                 v-model="sortDir" @change="onChange"
                 :items="dirItems" item-text="text" item-value="value" />
     </v-row>
+    <h2 class="my-4 mx-3 text-center" v-if="favorites.length === 0">Здесь пока пусто!</h2>
     <cities-list :cities="itemsOnPage" weather del-btn />
     <div class="text-center mx-3">
       <v-pagination
+          v-if="favorites.length !== 0"
           v-model="page"
           :length="length"
       ></v-pagination>
