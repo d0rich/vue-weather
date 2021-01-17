@@ -20,6 +20,8 @@ export class City{
         this.id = id
         this.name = name
 
+        this.checkFavorite()
+
         this.population = population ? population : Math.round(Math.random() * 100)
 
         this.postalCode = postalCode
@@ -27,6 +29,11 @@ export class City{
         else if (this.postalCode) this.getLocationByPostalCode()
         this.region = undefined
         this.currentWeather = undefined
+    }
+
+    checkFavorite(){
+        const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
+        this.favorite = favoritesIds.includes(this.id)
     }
 
     async getLocationByName(){

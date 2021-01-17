@@ -39,18 +39,21 @@ export default new Vuex.Store({
       favoritesIds.forEach(id => {
         geohelper.getCityById(id)
             .then(city => {
+              console.log(city)
               state.favorites.push(city)
             })
       })
     },
     addFavorite(state, newCity){
       state.favorites.push(newCity)
+      newCity.favorite = true
       const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
       favoritesIds.push(newCity.id)
       localStorage.setItem('favorites', JSON.stringify(favoritesIds))
     },
     removeFavorite(state, cityToDelete){
       state.favorites.splice(state.favorites.findIndex(city => city.id === cityToDelete.id), 1)
+      cityToDelete.favorite = false
       const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
       favoritesIds.splice(favoritesIds.findIndex(id => id === cityToDelete.id), 1)
       localStorage.setItem('favorites', JSON.stringify(favoritesIds))
@@ -63,6 +66,7 @@ export default new Vuex.Store({
       }, 1000)
     },
     checkFavorite(state, city){
+      if (!state.favorites) return false
       return state.favorites.includes(f => f.id === city.id)
     },
     async getRegions({commit}){
