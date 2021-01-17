@@ -36,28 +36,73 @@ export default new Vuex.Store({
       const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
       const geohelper = new GeoHelper()
       state.favorites = []
-      favoritesIds.forEach(id => {
-        geohelper.getCityById(id)
+      favoritesIds.forEach(f => {
+        geohelper.getCityById(f.id)
             .then(city => {
-              console.log(city)
+              city.getCurrentWeather()
               state.favorites.push(city)
             })
       })
     },
     addFavorite(state, newCity){
+      const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
+      favoritesIds.push({id: newCity.id, date: new Date()})
+      localStorage.setItem('favorites', JSON.stringify(favoritesIds))
+
       state.favorites.push(newCity)
       newCity.favorite = true
-      const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
-      favoritesIds.push(newCity.id)
-      localStorage.setItem('favorites', JSON.stringify(favoritesIds))
     },
     removeFavorite(state, cityToDelete){
+      const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
+      favoritesIds.splice(favoritesIds.findIndex(f => f.id === cityToDelete.id), 1)
+      localStorage.setItem('favorites', JSON.stringify(favoritesIds))
+
       state.favorites.splice(state.favorites.findIndex(city => city.id === cityToDelete.id), 1)
       cityToDelete.favorite = false
-      const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
-      favoritesIds.splice(favoritesIds.findIndex(id => id === cityToDelete.id), 1)
-      localStorage.setItem('favorites', JSON.stringify(favoritesIds))
+    },
+    // name - по названию
+    // date - по дате добавления в избранное
+    // pos - по удалению от пользователя
+    sortFavorites(state, type = 'name'){
+      switch (type){
+        case "name":
+          state.favorites.sort((a, b) => {
+            if (a.name < b.name) {
+              return -1;
+            }
+            if (a.name > b.name) {
+              return 1;
+            }
+            return 0;
+          })
+          break
+        case 'date':
+          state.favorites.sort((a, b) => {
+            if (a.favoriteDate > b.favoriteDate) {
+              return -1;
+            }
+            if (a.favoriteDate < b.favoriteDate) {
+              return 1;
+            }
+            return 0;
+          })
+          break
+        case 'pos':
+          state.favorites.sort((a, b) => {
+            const aDistance = a.location.getDistance(state.location)
+            const bDistance = b.location.getDistance(state.location)
+            if (aDistance < bDistance) {
+              return -1;
+            }
+            if (aDistance > bDistance) {
+              return 1;
+            }
+            return 0;
+          })
+          break
+      }
     }
+
   },
   actions: {
     setTimeInterval({commit}){

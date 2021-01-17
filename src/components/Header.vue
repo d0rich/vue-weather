@@ -13,6 +13,9 @@
       <v-btn text :to="{name: 'Region'}">
         <span>Мой регион</span>
       </v-btn>
+      <v-btn text :to="{name: 'Favorites'}">
+        <span>Любимые города</span>
+      </v-btn>
 
     </div>
 

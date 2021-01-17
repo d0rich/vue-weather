@@ -33,7 +33,16 @@ export class City{
 
     checkFavorite(){
         const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
-        this.favorite = favoritesIds.includes(this.id)
+        let favoriteNote = favoritesIds.find(f => f.id === this.id)
+        if (favoriteNote) {
+            this.favorite = true
+            this.favoriteDate = new Date(favoriteNote)
+        }
+        else{
+            this.favorite = false
+            this.favoriteDate = undefined
+        }
+
     }
 
     async getLocationByName(){

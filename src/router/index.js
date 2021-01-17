@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import City from "@/views/City";
-import Region from "@/components/Region";
+import Region from "@/views/Region";
+import Favorites from "@/views/Favorites";
 Vue.use(VueRouter)
 
 const routes = [
@@ -20,6 +21,11 @@ const routes = [
     path: '/region',
     name: 'Region',
     component: Region
+  },
+  {
+    path: '/favorites',
+    name: 'Favorites',
+    component: Favorites
   },
   {
     path: '/about',
