@@ -16,8 +16,8 @@ export class Region{
         this.onCitiesLoad = true
         this.cities = []
         let res = (await this.geoApi.getCitiesOfRegion(this.id, page, limit, orderBy, dir))
-        let cities = res[0]
-        this.citiesPages = res[1]
+        let cities = res.cities
+        this.citiesPages = res.pages
         cities.forEach(city => {
             city.region = this
             this.cities.push(city)
