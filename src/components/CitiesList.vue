@@ -2,7 +2,7 @@
   <v-list :style="{'max-height': maxHeight || 'unset', overflow: 'auto'}" >
     <v-list-item v-for="(city, index) in cities" :key="index"
                  link :to="delBtn ? null : {name: 'City', params: {id: city.id}}">
-      <v-list-item-content @click="goToCity(city)">
+      <v-list-item-content @click.stop="goToCity(city)">
         <v-list-item-title>
           <span v-if="positions">{{index + 1}})</span> {{city.name}}
           <v-icon v-if="city.favorite" color="orange">mdi-star</v-icon>
@@ -100,7 +100,8 @@ name: "CitiesList",
   },
   methods:{
     goToCity(city){
-      this.$router.push({name: 'City', params: {id: city.id} })
+      if (this.delBtn)
+        this.$router.push({name: 'City', params: {id: city.id} })
     }
   }
 }

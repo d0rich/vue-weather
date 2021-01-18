@@ -2,7 +2,7 @@
   <div style="max-width: 700px; margin: auto">
     <h2 class="my-4 mx-3">Избранные города</h2>
     <v-row class="mt-3 mx-3">
-      <v-select class="mx-4" label="Сортировать по"
+      <v-select class="mx-4" label="Сортировать"
                 v-model="sortBy" @change="onChange"
                 :items="sortItems" item-text="text" item-value="value" />
       <v-select class="mx-4" label="Порядок"
@@ -13,7 +13,7 @@
     <cities-list :cities="itemsOnPage" weather del-btn />
     <div class="text-center mx-3">
       <v-pagination
-          v-if="favorites.length !== 0"
+          v-if="length > 1"
           v-model="page"
           :length="length"
       ></v-pagination>
