@@ -4,6 +4,7 @@
         type="card"
         :loading="!cityNow || cityNow.onCurrentWeatherLoad"
         width="300"
+        class="mx-3"
     >
       <WeatherNow :city-now="cityNow" :weather="cityNow.currentWeather" />
     </v-skeleton-loader>
@@ -12,14 +13,16 @@
         type="card"
         :loading="!cityNow || cityNow.onSunDayLoad"
         width="200"
+        class="mx-3"
     >
       <SunDay :sunday="cityNow.sunDay" />
     </v-skeleton-loader>
-    <PopularCities class="pop-cities"/>
+    <PopularCities class="pop-cities mx-3"/>
     <v-skeleton-loader
         type="card"
         :loading="!cityNow || cityNow.onWeekWeatherLoad"
         width="200"
+        class="mx-3"
     >
       <ForecastDaily :week-weather="cityNow.weekWeather" />
     </v-skeleton-loader>
@@ -49,12 +52,6 @@ name: "City",
   },
   methods:{
     ...mapActions(['loadStartData']),
-    async awaitUserCity(){
-      if (!this.city || this.city.id === 0){
-        await this.timeout(100)
-        await this.awaitUserCity()
-      }
-    },
     async fetchCity(){
       if (!this.$route.params.id || this.$route.params.id === '0'){
         if (this.city && this.city.id !== 0) {

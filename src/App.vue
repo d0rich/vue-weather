@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <Modal />
     <Header />
     <v-main>
       <router-view />
@@ -9,13 +10,14 @@
 
 <script>
 import Header from "@/components/Header";
+import Modal from "@/components/Modal";
 import {Coords, IpApi} from "@/classes";
 import {mapActions} from 'vuex'
 export default {
   name: 'App',
 
   components: {
-    Header
+    Header, Modal
   },
 
   data: () => ({

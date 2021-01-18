@@ -10,11 +10,17 @@
         <v-icon>mdi-weather-windy-variant</v-icon>
         <span>Погода</span>
       </v-btn>
+      <v-btn text :to="{name: '10Days'}">
+        <span>Прогноз на 10 дней</span>
+      </v-btn>
+      <v-btn text :to="{name: 'Month'}">
+        <span>Прогноз на месяц</span>
+      </v-btn>
       <v-btn text :to="{name: 'Region'}">
         <span>Мой регион</span>
       </v-btn>
       <v-btn text :to="{name: 'Favorites'}">
-        <span>Любимые города</span>
+        <span>Избранное</span>
       </v-btn>
 
     </div>

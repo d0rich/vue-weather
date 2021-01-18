@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import City from "@/views/City";
 import Region from "@/views/Region";
 import Favorites from "@/views/Favorites";
+import w10Days from "@/views/10Days";
+import Month from "@/views/Month";
 Vue.use(VueRouter)
 
 const routes = [
@@ -28,11 +30,18 @@ const routes = [
     component: Favorites
   },
   {
+    path: '/10days',
+    name: '10Days',
+    component: w10Days
+  },
+  {
+    path: '/month',
+    name: 'Month',
+    component: Month
+  },
+  {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {

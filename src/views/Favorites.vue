@@ -1,6 +1,6 @@
 <template>
   <div style="max-width: 700px; margin: auto">
-    <h2 class="my-4 mx-3">Любимые населённые пункты</h2>
+    <h2 class="my-4 mx-3">Избранные города</h2>
     <v-row class="mt-3 mx-3">
       <v-select class="mx-4" label="Сортировать по"
                 v-model="sortBy" @change="onChange"

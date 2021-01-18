@@ -1,6 +1,6 @@
 <template>
   <div class="main-container">
-    <h1>Прогноз на ближайшие дни:</h1>
+    <h1>{{ text ? text :  'Прогноз на ближайшие дни' }}:</h1>
     <div class="weather-container">
       <v-card elevation="2"
               shaped
@@ -41,7 +41,8 @@
 export default {
 name: "ForecastDaily",
   props:{
-    weekWeather: Array
+    weekWeather: Array,
+    text: String
   }
 }
 </script>

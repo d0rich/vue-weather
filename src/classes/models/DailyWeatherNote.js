@@ -19,12 +19,17 @@ export class DailyWeatherNote {
 
         this.date = new Date(OwmNote.dt * 1000)
         let days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ']
-        let today = new Date()
-        if (today.getDate() - 1 === this.date.getDate())
+        let todayBegin = new Date().setHours(0,0,0,0)
+        let todayEnd = new Date().setHours(23,59,59,999)
+        let yesterdayBegin = new Date().setHours(-24,0,0,0)
+        let yesterdayEnd = new Date().setHours(-1,59,59,999)
+        let tomorrowBegin = new Date().setHours(24,0,0,0)
+        let tomorrowEnd = new Date().setHours(47,59,59,999)
+        if (Number(this.date) >= yesterdayBegin && Number(this.date) <= yesterdayEnd)
             this.dayName = 'Вчера'
-        else if (today.getDate() === this.date.getDate())
+        else if (Number(this.date) >= todayBegin && Number(this.date) <= todayEnd)
             this.dayName = 'Сегодня'
-        else if (today.getDate() + 1 === this.date.getDate())
+        else if (Number(this.date) >= tomorrowBegin && Number(this.date) <= tomorrowEnd)
             this.dayName = 'Завтра'
         else this.dayName = days[this.date.getDay()]
     }

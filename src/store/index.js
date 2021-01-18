@@ -11,7 +11,11 @@ export default new Vuex.Store({
     city: new City(),
     regions: [new Region()],
     timeNow: new Date(),
-    favorites: []
+    favorites: [],
+    modal: {
+      show: false,
+      text: ''
+    }
   },
   getters: {
 
@@ -51,6 +55,10 @@ export default new Vuex.Store({
 
       state.favorites.push(newCity)
       newCity.favorite = true
+
+
+      state.modal.text = `${newCity.name} был добавлен в избранное.`
+      state.modal.show = true
     },
     removeFavorite(state, cityToDelete){
       const favoritesIds = JSON.parse(localStorage.getItem('favorites')) || []
@@ -59,6 +67,10 @@ export default new Vuex.Store({
 
       state.favorites.splice(state.favorites.findIndex(city => city.id === cityToDelete.id), 1)
       cityToDelete.favorite = false
+
+
+      state.modal.text = `${cityToDelete.name} был удален из избранного.`
+      state.modal.show = true
     },
     // name - по названию
     // date - по дате добавления в избранное
@@ -102,6 +114,13 @@ export default new Vuex.Store({
           })
           break
       }
+    },
+    showModal(state, text){
+      state.modal.text = text
+      state.modal.show = true
+    },
+    closeModal(state){
+      state.modal.show = false
     }
 
   },

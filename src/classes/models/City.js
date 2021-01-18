@@ -7,6 +7,7 @@ export class City{
     onCurrentWeatherLoad = true
     onSunDayLoad = true
     onWeekWeatherLoad = true
+    onMonthWeatherLoad = true
 
     weatherApi = new OwmApi()
 
@@ -99,6 +100,19 @@ export class City{
             if (this.postalCode) await this.getLocationByPostalCode()
             else await this.getLocationByName()
             await this.getWeekWeather()
+        }
+    }
+
+    async getMonthWeather(){
+        if (this.location){
+            this.onMonthWeatherLoad = true
+            this.monthWeather = await this.weatherApi.monthWeatherByCoords(this.location)
+            this.onMonthWeatherLoad = false
+        }
+        else {
+            if (this.postalCode) await this.getLocationByPostalCode()
+            else await this.getLocationByName()
+            await this.getMonthWeather()
         }
     }
 }

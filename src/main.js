@@ -18,6 +18,12 @@ Vue.mixin({
     ...mapMutations(['setLocation', 'setCity', 'setRegion', "getFavorites", "addFavorite", "removeFavorite"]),
     timeout(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
+    },
+    async awaitUserCity(){
+      if (!this.city || this.city.id === 0){
+        await this.timeout(100)
+        await this.awaitUserCity()
+      }
     }
   }
 })
