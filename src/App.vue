@@ -36,6 +36,7 @@ export default {
     }, undefined )
     this.getFavorites()
     this.getRegions()
+
   }
 };
 </script>

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import City from "@/views/City";
 import Region from "@/views/Region";
 import Favorites from "@/views/Favorites";
@@ -9,11 +8,6 @@ import Month from "@/views/Month";
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
   {
     path: '/city/:id',
     name: 'City',
