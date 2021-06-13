@@ -1,24 +1,7 @@
-# smart-world-trial
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# Vue.js Агрегатор погоды
+Данное приложение автоматически определяет ваше местоположение и выводит погоду и прогноз погоды на ближайшее время. 
+Также есть возможность проматривать список городов России, просматривать прогноз погоды там и сохранять их в избранное. 
+# Источники информации
+Информация берется из открытых api.
+# Попробовать
+Приложение доступно по [этой ссылке](http://dorich-weather.herokuapp.com/).
